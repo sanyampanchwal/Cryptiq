@@ -31,3 +31,140 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# IntelliJ
+.idea/
+*.iml
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Other
+bin/
+build/
+
+# ==========================================
+# 🚀 CRYPTIQ - Full Stack Project .gitignore
+# ==========================================
+
+### Backend (Spring Boot / Maven)
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
+spring.log
+dependency-reduced-pom.xml
+
+### Environment / Secrets
+.env
+.env.*
+application.properties
+application.yml
+application-local.yml
+application-dev.yml
+application-prod.yml
+
+### IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+### Eclipse
+.project
+.classpath
+.settings/
+.sts4-cache/
+
+### Build tools
+build/
+bin/
+
+### Logs and temp files
+*.log
+logs/
+tmp/
+*.tmp
+*.bak
+*.swp
+
+### Mac / Windows OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================================
+# 🖥️ Frontend (React + Node.js)
+# ==========================================
+
+### Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log*
+
+### Build Output
+build/
+dist/
+.cache/
+coverage/
+
+### Environment
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### Editor settings
+.vscode/
+.history/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ==========================================
+# ⚙️ Others
+# ==========================================
+
+# Database dumps
+*.sql
+*.sqlite
+*.db
+
+# Sensitive keys (just in case)
+*.pem
+*.key
+*.crt
+*.p12
+*.keystore
+
+# Temporary uploads / generated files
+uploads/
+storage/
