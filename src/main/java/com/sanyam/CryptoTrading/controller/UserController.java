@@ -139,7 +139,7 @@ public class UserController {
 
         ForgotPasswordToken forgotPasswordToken=forgotPasswordService.findById(id);
 
-        boolean isVerified = forgotPasswordToken.getOtp().equals(req.getOtp);
+        boolean isVerified = forgotPasswordToken.getOtp().equals(req.getOtp());
 
         if(isVerified) {
             userService.updatePassword(
