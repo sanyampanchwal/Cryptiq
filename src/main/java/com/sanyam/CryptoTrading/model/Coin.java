@@ -16,11 +16,8 @@ import java.util.Date;
 public class Coin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // DB primary key
-
     @JsonProperty("id")
-    private String coinId;
+    private String id;
 
     @JsonProperty("symbol")
     private String symbol;

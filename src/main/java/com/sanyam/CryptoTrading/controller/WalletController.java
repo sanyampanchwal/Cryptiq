@@ -4,6 +4,7 @@ import com.sanyam.CryptoTrading.model.Order;
 import com.sanyam.CryptoTrading.model.User;
 import com.sanyam.CryptoTrading.model.Wallet;
 import com.sanyam.CryptoTrading.model.WalletTransaction;
+import com.sanyam.CryptoTrading.service.OrderService;
 import com.sanyam.CryptoTrading.service.UserService;
 import com.sanyam.CryptoTrading.service.WalletService;
 import org.apache.coyote.Response;
@@ -24,6 +25,9 @@ public class WalletController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/api/wallet")
     public ResponseEntity<Wallet> getUserWallet(
