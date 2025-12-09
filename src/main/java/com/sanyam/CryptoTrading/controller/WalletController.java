@@ -1,10 +1,9 @@
 package com.sanyam.CryptoTrading.controller;
 
-import com.sanyam.CryptoTrading.model.Order;
-import com.sanyam.CryptoTrading.model.User;
-import com.sanyam.CryptoTrading.model.Wallet;
-import com.sanyam.CryptoTrading.model.WalletTransaction;
+import com.sanyam.CryptoTrading.model.*;
+import com.sanyam.CryptoTrading.response.PaymentResponse;
 import com.sanyam.CryptoTrading.service.OrderService;
+import com.sanyam.CryptoTrading.service.PaymentService;
 import com.sanyam.CryptoTrading.service.UserService;
 import com.sanyam.CryptoTrading.service.WalletService;
 import org.apache.coyote.Response;
@@ -28,6 +27,9 @@ public class WalletController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     @GetMapping("/api/wallet")
     public ResponseEntity<Wallet> getUserWallet(
@@ -65,6 +67,28 @@ public class WalletController {
 
         Wallet wallet = walletService.payOrderPayment(order,user);
 
+        return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
+
+    }
+
+    @PutMapping("/api/wallet/deposit")
+    public ResponseEntity<Wallet>addBalanceToWallet(
+            @RequestHeader("Authorization")String jwt,
+            @RequestParam(name="order_id") Long orderId,
+            @RequestParam(name="payment_id") String paymentId
+    )throws Exception {
+        User user = userService.findUserByJwt(jwt);
+
+        Wallet wallet = walletService.getUserWallet(user);
+
+        PaymentOrder order = paymentService.getPaymentOrderById(orderId);
+
+        Boolean status = paymentService.ProceedPaymentOrder(order,paymentId);
+
+        if(status)
+        {
+            wallet = walletService.addBalance(wallet , order.getAmount());
+        }
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
 
     }
