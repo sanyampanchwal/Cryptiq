@@ -9,6 +9,7 @@ import com.sanyam.CryptoTrading.response.AuthResponse;
 import com.sanyam.CryptoTrading.service.CustomUserDetailsService;
 import com.sanyam.CryptoTrading.service.EmailService;
 import com.sanyam.CryptoTrading.service.TwoFactorOtpService;
+import com.sanyam.CryptoTrading.service.WatchlistService;
 import com.sanyam.CryptoTrading.utils.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,9 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private WatchlistService watchlistService;
+
     //REGISTRATION OF ACCT IF DOESNT EXIST
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> register(@RequestBody User user) throws Exception {
@@ -52,6 +56,9 @@ public class AuthController {
         newUser.setFullName(user.getFullName());
 
         User savedUser = userRepository.save(newUser);
+
+        watchlistService.createWatchlist(savedUser);
+
         Authentication auth = new UsernamePasswordAuthenticationToken(
                 user.getEmail(),
                 user.getPassword()
@@ -68,7 +75,7 @@ public class AuthController {
     }
 
 
-    //Signing in to already existing acct
+    //Signing in to already existing acct fwaeyyy
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody User user) throws Exception {
 
@@ -82,7 +89,7 @@ public class AuthController {
         User authUser = userRepository.findByEmail(username);
 
         //if 2 factor on do if block
-        if(user.getTwoFactorAuth().isEnabled()){
+        if(authUser.getTwoFactorAuth().isEnabled()){
             AuthResponse res = new AuthResponse();
             res.setMessage("Two factor auth is enabled");
             res.setTwoFactorAuthEnabled(true);
@@ -126,7 +133,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("two-factor/otp/{otp")
+    @PostMapping("two-factor/otp/{otp}")
     public ResponseEntity<AuthResponse> verifySignInOpt(
             @PathVariable String otp ,
             @RequestParam String id) throws Exception {

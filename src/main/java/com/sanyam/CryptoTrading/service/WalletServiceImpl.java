@@ -24,6 +24,7 @@ public class WalletServiceImpl implements WalletService {
         if(wallet == null) {
             wallet = new Wallet();
             wallet.setUser(user);
+            walletRepo.save(wallet);
         }
         return wallet;
     }
